@@ -1,8 +1,17 @@
+import { Routes, Route } from "react-router-dom";
+import Hero from "./component/Hero";
+import ProductDetails from "./component/ProductDetails";
+import "./App.css";
 
 const App = () => {
   return (
-    <div>App</div>
-  )
-}
+    <>
+      <Routes>
+        <Route path="/" element={<Hero />} />
+        <Route path="/product/:slug" element={<ProductDetails />} />
+      </Routes>
+    </>
+  );
+};
 
-export default App
+export default App;
