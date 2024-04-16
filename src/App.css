@@ -166,9 +166,9 @@
       width: 600px;
       background-color: white;
       float: right;
-      padding: 40px 10px;
+      padding: 40px 60px;
       position: relative;
-      
+      color: rgb(31, 41, 55);
     }
     
     .footer-container{
@@ -524,7 +524,7 @@
       }
       .cart-container{
         width: 415px;
-      padding: 4px;
+      padding: 4px 25px;
       }
       .cart-heading{
         margin-top: 35px;
