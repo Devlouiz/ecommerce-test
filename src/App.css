@@ -154,7 +154,7 @@
       width: 100vw;
       background: rgba(0, 0, 0, 0.5);
       position: fixed;
-      right: 0;
+      right: -50px;
       top: 0;
       z-index: 100;
       /* will-change: transform; */
@@ -524,7 +524,7 @@
       }
       .cart-container{
         width: 415px;
-      padding: 4px 25px;
+      padding: 4px 40px;
       }
       .cart-heading{
         margin-top: 35px;
