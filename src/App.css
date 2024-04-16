@@ -154,7 +154,7 @@
       width: 100vw;
       background: rgba(0, 0, 0, 0.5);
       position: fixed;
-      right: -50px;
+      right: 0px;
       top: 0;
       z-index: 100;
       /* will-change: transform; */
