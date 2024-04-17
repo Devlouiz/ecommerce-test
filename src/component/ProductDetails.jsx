@@ -47,7 +47,7 @@ const ProductDetails = () => {
       });
   }, [slug]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="w-full flex align-middle h-full">Loading...</div>;
   if (!product) return <div>Product not found!</div>;
 
   return (

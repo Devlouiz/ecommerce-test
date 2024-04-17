@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import {toast} from 'react-toastify'
 
 const StateContext = createContext({});
 
@@ -33,6 +34,7 @@ export const StateProvider = ({ children }) => {
       
       setCartItems([...cartItems, { ...product }]);
     }
+    alert(`${qty} ${product.name} added to the cart.`)
   } 
 
   const onRemove = (product) => {
