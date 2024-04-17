@@ -33,8 +33,6 @@ export const StateProvider = ({ children }) => {
       
       setCartItems([...cartItems, { ...product }]);
     }
-
-    toast.success(`${qty} ${product.name} added to the cart.`);
   } 
 
   const onRemove = (product) => {
