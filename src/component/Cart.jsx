@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigation } from 'react-router-dom';
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft, AiOutlineShopping } from 'react-icons/ai';
 import { TiDeleteOutline } from 'react-icons/ti';
-//import toast from 'react-hot-toast';
 
 import useStates from '../hooks/useStates';
 import { urlFor } from '../lib/client';
@@ -10,10 +9,14 @@ import { urlFor } from '../lib/client';
 
 const Cart = () => {
   const cartRef = useRef();
-  const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useStates();
+  const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove, setCartItems, setTotalQuantities } = useStates();
 
    /* Here we can implement a function to handle cart checkout */
-
+    const handleCheckout = () => {
+        setCartItems([])
+        setTotalQuantities(0)
+        setShowCart(false)
+    }
   return (
     <div className="cart-wrapper" ref={cartRef}>
       <div className="cart-container">
@@ -80,8 +83,10 @@ const Cart = () => {
               <h3>${totalPrice}</h3>
             </div>
             <div className="btn-container">
-              <button type="button" className="btn" onClick=''>
+              <button type="button" className="btn" onClick={handleCheckout}>
+                <Link to={'/successfulcheckout'}>
                 Pay with PayStack
+                </Link>
               </button>
             </div>
           </div>
