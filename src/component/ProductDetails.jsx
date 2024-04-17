@@ -12,7 +12,7 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
 
   const [index, setIndex] = useState(0);
-  const { decQty, incQty, qty, onAdd, setShowCart } = useStates();
+  const { decQty, incQty, qty, onAdd, setShowCart, resetQty } = useStates();
 
   const handleBuyNow = () => {
     onAdd(product, qty);
@@ -46,6 +46,9 @@ const ProductDetails = () => {
         setLoading(false);
       });
   }, [slug]);
+  useEffect(()=>{
+    resetQty()
+  },[])
 
   if (loading) return <div className="w-full flex align-middle h-full">Loading...</div>;
   if (!product) return <div>Product not found!</div>;

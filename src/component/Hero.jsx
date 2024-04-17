@@ -4,36 +4,38 @@ import { client } from "../lib/client";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
+import useStates from "../hooks/useStates";
 
 const Product = ({ product }) => {
-    console.log(product)
-    
-    if (!product) return <div>Oops No Product Available</div>;
-    return (
+  console.log(product);
+  const {onAdd} = useStates()
+
+  if (!product) return <div>Oops No Product Available</div>;
+  return (
     <div>
       <Link to={`/product/${product.slug.current}`}>
         <div className="product-card">
-          <img 
+          <img
             src={product.imageUrl}
             width={250}
             height={200}
             className="product-image"
-            />
+          />
           <p className="product-name">{product.name}</p>
           <p className="product-price">${product.price}</p>
         </div>
       </Link>
+      
     </div>
-  )
-}
-
+  );
+};
 
 const Hero = () => {
-    const [products, setProducts] = useState([]);
-    const productContainerRef = useRef(null)
-    const scrollToProducts = () => {
-        productContainerRef.current.scrollIntoView({ behavior: 'smooth' });
-    };
+  const [products, setProducts] = useState([]);
+  const productContainerRef = useRef(null);
+  const scrollToProducts = () => {
+    productContainerRef.current.scrollIntoView({ behavior: "smooth" });
+  };
   useEffect(() => {
     client
       .fetch(
@@ -53,7 +55,7 @@ const Hero = () => {
   }, []);
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <section className="bg-gray-800 text-gray-100">
         <div className="container flex flex-col justify-center p-6 mx-auto sm:py-12 lg:py-24 lg:flex-row lg:justify-between">
           <div className="flex flex-col justify-center p-6 text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
