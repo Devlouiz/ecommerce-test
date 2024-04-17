@@ -4,6 +4,7 @@ import { client, urlFor } from "../lib/client";
 import useStates from "../hooks/useStates";
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const ProductDetails = () => {
   const { slug } = useParams();
@@ -115,6 +116,7 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
