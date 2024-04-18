@@ -40,7 +40,6 @@ const Hero = () => {
     );
   };
   const {onAdd, cartItems} = useStates()
-  //const [product, setProduct] = useState(null);
   const [products, setProducts] = useState([]);
   const productContainerRef = useRef(null);
   const scrollToProducts = () => {

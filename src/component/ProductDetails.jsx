@@ -54,7 +54,6 @@ const ProductDetails = () => {
   if (loading) return <div className="w-full flex align-middle h-full">Loading...</div>;
   if (!product) return <div>Product not found!</div>;
   const addToCart = () => {
-    // Assume you have a method to handle adding items to the cart
     onAdd(product, qty);
     resetQty(); // Reset qty after adding to cart
   };
@@ -117,7 +116,6 @@ const ProductDetails = () => {
               type="button"
               className="add-to-cart"
               onClick={() => 
-                //onAdd(product, qty)
                 addToCart()
               }
             >
