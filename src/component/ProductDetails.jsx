@@ -33,12 +33,13 @@ const ProductDetails = () => {
                     _id,
                     url
                   }
-                }
+                },
+                "imageUrl": image[0].asset->url
             }`,
         { slug }
       )
       .then((data) => {
-        setProduct(data[0]); // Assuming the query returns an array
+        setProduct(data[0]);
         setLoading(false);
       })
       .catch((err) => {
@@ -52,6 +53,11 @@ const ProductDetails = () => {
 
   if (loading) return <div className="w-full flex align-middle h-full">Loading...</div>;
   if (!product) return <div>Product not found!</div>;
+  const addToCart = () => {
+    // Assume you have a method to handle adding items to the cart
+    onAdd(product, qty);
+    resetQty(); // Reset qty after adding to cart
+  };
 
   return (
     <div>
@@ -60,7 +66,8 @@ const ProductDetails = () => {
         <div className="w-full">
           <div className="image-container">
             <img
-              src={urlFor(product.image && product.image[index].asset.url)}
+              src={product.imageUrl}
+              //src={urlFor(product.image && product.image[index].asset.url)}
               className="product-detail-image"
             />
           </div>
@@ -109,7 +116,10 @@ const ProductDetails = () => {
             <button
               type="button"
               className="add-to-cart"
-              onClick={() => onAdd(product, qty)}
+              onClick={() => 
+                //onAdd(product, qty)
+                addToCart()
+              }
             >
               Add to Cart
             </button>

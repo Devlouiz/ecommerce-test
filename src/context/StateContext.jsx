@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import {toast} from 'react-toastify'
 
 const StateContext = createContext({});
@@ -23,23 +23,26 @@ export const StateProvider = ({ children }) => {
     
     if(checkProductInCart) {
       const updatedCartItems = cartItems.map((cartProduct) => {
-        if(cartProduct.name === product.name) return {
+        if(cartProduct.name === product.name) {
+          return {
           ...cartProduct,
           quantity: cartProduct.quantity + quantity
         }
+      }
+      return cartProduct
       })
 
       setCartItems(updatedCartItems);
     } else {
       product.quantity = quantity;
       
-      setCartItems([...cartItems, { ...product }]);
+      setCartItems([...cartItems, { ...product, quantity }]);
     }
     alert(`${qty} ${product.name} added to the cart.`)
   } 
 
   const onRemove = (product) => {
-    foundProduct = cartItems.find((item) => item.name === product.name);
+    let foundProduct = cartItems.find((item) => item.name === product.name);
     const newCartItems = cartItems.filter((item) => item.name !== product.name);
 
     setTotalPrice((prevTotalPrice) => prevTotalPrice -foundProduct.price * foundProduct.quantity);
@@ -48,17 +51,18 @@ export const StateProvider = ({ children }) => {
   }
 
   const toggleCartItemQuanitity = (name, value) => {
-    foundProduct = cartItems.find((item) => item.name === name)
+    let foundProduct = cartItems.find((item) => item.name === name)
     index = cartItems.findIndex((product) => product.name === name);
-    //const newCartItems = cartItems.filter((item) => item.name !== name)
 
     const newCartItems = cartItems.map(item => {
       if (item.name === name) {
+        let newQuantity = item.quantity
         if (value === 'inc') {
-          return { ...item, quantity: item.quantity + 1 };
+          newQuantity = item.quantity + 1;
         } else if (value === 'dec') {
-          return { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1 };
+          newQuantity = item.quantity > 1 ? item.quantity - 1 : 1;
         }
+        return { ...item, quantity: newQuantity };
       }
       return item;
     });
@@ -66,12 +70,10 @@ export const StateProvider = ({ children }) => {
     setCartItems(newCartItems);
 
     if(value === 'inc') {
-      //setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity + 1 } ]);
       setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price)
       setTotalQuantities(prevTotalQuantities => prevTotalQuantities + 1)
     } else if(value === 'dec') {
       if (foundProduct.quantity > 1) {
-        //setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity - 1 } ]);
         setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price)
         setTotalQuantities(prevTotalQuantities => prevTotalQuantities - 1)
       }

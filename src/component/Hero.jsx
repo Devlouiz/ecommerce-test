@@ -1,36 +1,46 @@
 import heroimg from "../assets/heroimg.png";
 import Footer from "./Footer";
-import { client } from "../lib/client";
+import { client, urlFor } from "../lib/client";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import useStates from "../hooks/useStates";
 
-const Product = ({ product }) => {
-  console.log(product);
-  const {onAdd} = useStates()
-
-  if (!product) return <div>Oops No Product Available</div>;
-  return (
-    <div>
-      <Link to={`/product/${product.slug.current}`}>
-        <div className="product-card">
-          <img
-            src={product.imageUrl}
-            width={250}
-            height={200}
-            className="product-image"
-          />
-          <p className="product-name">{product.name}</p>
-          <p className="product-price">${product.price}</p>
-        </div>
-      </Link>
-      
-    </div>
-  );
-};
 
 const Hero = () => {
+  const Product = ({ product, addtocart }) => {
+    console.log(product);
+    const { onAdd } = useStates()
+    const [index, setIndex] = useState(0);
+  
+    if (!product) return <div>Oops No Product Available</div>;
+    
+    return (
+      <div>
+        <Link to={`/product/${product.slug.current}`}>
+          <div className="product-card">
+            <img
+              src={product.imageUrl}
+              //src={urlFor(product.image && product.image[index].asset.url)}
+              width={250}
+              height={200}
+              className="product-image"
+            />
+            <p className="product-name">{product.name}</p>
+            <p className="product-price">${product.price}</p>
+          </div>
+        </Link>
+        <button
+          onClick={() => addtocart(product,1)} // Add one item to cart
+          className="bg-violet-500 text-white px-4 py-2 rounded hover:bg-violet-600"
+        >
+          Add to Cart
+        </button>
+      </div>
+    );
+  };
+  const {onAdd, cartItems} = useStates()
+  //const [product, setProduct] = useState(null);
   const [products, setProducts] = useState([]);
   const productContainerRef = useRef(null);
   const scrollToProducts = () => {
@@ -44,6 +54,12 @@ const Hero = () => {
             slug,
             price,
             details,
+            image[]{
+              asset->{
+                _id,
+                url
+              }
+            },
             "imageUrl": image[0].asset->url
           }`
       )
@@ -94,7 +110,7 @@ const Hero = () => {
       <div className="products-container" ref={productContainerRef}>
         {products.length > 0 ? (
           products.map((product) => (
-            <Product key={product._id} product={product} />
+            <Product key={product.name} product={product} addtocart={onAdd}/>
           ))
         ) : (
           <div>Loading...</div>
